@@ -37,7 +37,7 @@ func (a *App) Initialize(user string, password string, dbname string) {
 
 //Run function will start the application
 func (a *App) Run(addr string) {
-	log.Fatal(http.ListenAndServe(":8010", a.Router))
+	log.Fatal(http.ListenAndServe(":18010", a.Router))
 }
 
 //getProduct fucntion will return a product from the DB based on the specified id
