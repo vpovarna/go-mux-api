@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"database/sql"
@@ -50,7 +50,7 @@ func (a *App) getProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	p := product{ID: id}
+	p := Product{ID: id}
 	err = p.getProduct(a.DB)
 
 	if err != nil {
@@ -75,7 +75,7 @@ func (a *App) deleteProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	p := product{ID: id}
+	p := Product{ID: id}
 	err = p.deleteProduct(a.DB)
 
 	if err != nil {
@@ -87,7 +87,7 @@ func (a *App) deleteProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *App) createProduct(w http.ResponseWriter, r *http.Request) {
-	var p product
+	var p Product
 	decoder := json.NewDecoder(r.Body)
 	if err := decoder.Decode(&p); err != nil {
 		respondWithError(w, http.StatusBadRequest, "Invalid request payload")
@@ -112,7 +112,7 @@ func (a *App) updateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var p product
+	var p Product
 	decoder := json.NewDecoder(r.Body)
 	err = decoder.Decode(&p)
 
@@ -144,7 +144,7 @@ func (a *App) getProducts(w http.ResponseWriter, r *http.Request) {
 	if start < 0 {
 		start = 0
 	}
-	var p product
+	var p Product
 
 	products, err := p.getProducts(a.DB, start, count)
 	if err != nil {

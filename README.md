@@ -14,3 +14,6 @@ Starting docker container:
 ```
 $ docker run -it -p 5432:5432 -d postgres
 ```
+
+### Build server
+ go build -v -o product-api

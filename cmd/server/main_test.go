@@ -9,9 +9,11 @@ import (
 	"os"
 	"strconv"
 	"testing"
+
+	"github.com/vpovarna/go-mux-api/server"
 )
 
-var a App
+var a server.App
 
 const createTableQuery = `CREATE TABLE IF NOT EXISTS products 
 (
@@ -179,7 +181,6 @@ func checkResponseCode(t *testing.T, expectedResponseConde, actualResponseCode i
 	if expectedResponseConde != actualResponseCode {
 		t.Errorf("Expected response code is: %d. Got: %d\n", expectedResponseConde, actualResponseCode)
 	}
-
 }
 
 func addProducts(count int) {
