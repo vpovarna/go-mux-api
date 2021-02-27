@@ -1,10 +1,14 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"os"
 
 	"github.com/vpovarna/go-mux-api/server"
 )
+
+const port = 18010
 
 func main() {
 
@@ -14,5 +18,6 @@ func main() {
 		os.Getenv("APP_DB_PASSWORD"),
 		os.Getenv("APP_DB_NAME"))
 
-	a.Run(":18010")
+	log.Printf("Starting server on port: %d \n", port)
+	a.Run(fmt.Sprintf(":%d", port))
 }

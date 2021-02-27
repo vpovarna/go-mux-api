@@ -2,15 +2,28 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/vpovarna/go-mux-api/client"
 	"github.com/vpovarna/go-mux-api/server"
 )
 
+var a server.App
+
+const purgeTableQuery = `DELETE FROM products`
+const resetPrimaryKey = `ALTER SEQUENCE products_id_seq RESTART WITH 1`
+
 func main() {
-	c := client.NewClient("http://localhost", 18010)
 	fmt.Println("Client run... ")
 
+	fmt.Println("Cleannig up the DB!")
+	a.Initialize(
+		os.Getenv("APP_DB_USERNAME"),
+		os.Getenv("APP_DB_PASSWORD"),
+		os.Getenv("APP_DB_NAME"))
+	clearDBTable()
+
+	c := client.NewClient("http://localhost", 18010)
 	getAllProducts(c)
 
 	products := []server.Product{{ID: 1, Name: "Client Test Product", Price: 11.11}, {ID: 2, Name: "Seccond Client Test Product", Price: 12.11}}
@@ -65,4 +78,9 @@ func getAllProducts(c *client.Client) {
 		fmt.Println(err.Error())
 	}
 	fmt.Println(*allProducts)
+}
+
+func clearDBTable() {
+	a.DB.Exec(purgeTableQuery)
+	a.DB.Exec(resetPrimaryKey)
 }
