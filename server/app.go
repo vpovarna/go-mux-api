@@ -19,7 +19,7 @@ type App struct {
 	DB     *sql.DB
 }
 
-//Initialize function is responsable for establish a DB connection
+//Initialize function is responsible for establish a DB connection
 func (a *App) Initialize(user string, password string, dbname string) {
 	connectionString := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", user, password, dbname)
 
@@ -40,7 +40,7 @@ func (a *App) Run(addr string) {
 	log.Fatal(http.ListenAndServe(":18010", a.Router))
 }
 
-//getProduct fucntion will return a product from the DB based on the specified id
+//getProduct function will return a product from the DB based on the specified id
 func (a *App) getProduct(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
