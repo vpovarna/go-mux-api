@@ -16,7 +16,7 @@ const resetPrimaryKey = `ALTER SEQUENCE products_id_seq RESTART WITH 1`
 func main() {
 	fmt.Println("Client run... ")
 
-	fmt.Println("Cleannig up the DB!")
+	fmt.Println("Cleaning up the DB!")
 	a.Initialize(
 		os.Getenv("APP_DB_USERNAME"),
 		os.Getenv("APP_DB_PASSWORD"),
@@ -26,7 +26,7 @@ func main() {
 	c := client.NewClient("http://localhost", 18010)
 	getAllProducts(c)
 
-	products := []server.Product{{ID: 1, Name: "Client Test Product", Price: 11.11}, {ID: 2, Name: "Seccond Client Test Product", Price: 12.11}}
+	products := []server.Product{{ID: 1, Name: "Client Test Product", Price: 11.11}, {ID: 2, Name: "Second Client Test Product", Price: 12.11}}
 
 	for _, product := range products {
 		fmt.Printf("---Creating tests product: %v ---\n", product)
@@ -38,7 +38,7 @@ func main() {
 	}
 
 	lastProduct := products[len(products)-1]
-	fmt.Printf("---Geting product with id=%d ---\n", lastProduct.ID)
+	fmt.Printf("---Getting product with id=%d ---\n", lastProduct.ID)
 
 	p, err := c.GetProduct(lastProduct.ID)
 	if err != nil {
@@ -61,8 +61,8 @@ func main() {
 	getAllProducts(c)
 
 	fmt.Println("---Updating Product---")
-	seccondProduct := server.Product{ID: 1, Name: "Updated Client Product", Price: 12.11}
-	err = c.UpdateProduct(&seccondProduct)
+	secondProduct := server.Product{ID: 1, Name: "Updated Client Product", Price: 12.11}
+	err = c.UpdateProduct(&secondProduct)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -72,7 +72,7 @@ func main() {
 }
 
 func getAllProducts(c *client.Client) {
-	fmt.Println("---Geting all the products---")
+	fmt.Println("---Getting all the products---")
 	allProducts, err := c.GetAllProducts()
 	if err != nil {
 		fmt.Println(err.Error())
